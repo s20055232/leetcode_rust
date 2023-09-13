@@ -31,11 +31,9 @@ mod tests {
             .map(|&x| x.to_string())
             .collect::<Vec<String>>();
 
-        assert_eq!(
-            Solution::group_anagrams(strs),
-            vec![vec!["bat"], vec!["nat", "tan"], vec!["ate", "eat", "tea"]]
-        );
-
+        let solution = Solution::group_anagrams(strs);
+        let ans = vec![vec!["bat"], vec!["nat", "tan"], vec!["ate", "eat", "tea"]];
+        check_answer(ans, solution);
         let strs = [""].iter().map(|&x| x.to_string()).collect::<Vec<String>>();
         assert_eq!(Solution::group_anagrams(strs), vec![vec![""]]);
 
@@ -44,5 +42,24 @@ mod tests {
             .map(|&x| x.to_string())
             .collect::<Vec<String>>();
         assert_eq!(Solution::group_anagrams(strs), vec![vec!["a"]]);
+    }
+
+    fn check_answer(mut ans: Vec<Vec<&str>>, mut solution: Vec<Vec<String>>) {
+        for i in ans.iter_mut() {
+            let mut index_to_remove = None;
+            i.sort_unstable();
+            for (idx, j) in solution.iter_mut().enumerate() {
+                j.sort_unstable();
+                if j == i {
+                    index_to_remove = Some(idx);
+                    break;
+                }
+            }
+            if let Some(x) = index_to_remove {
+                solution.remove(x);
+            } else {
+                panic!("A matching sub-vector was not found");
+            }
+        }
     }
 }
