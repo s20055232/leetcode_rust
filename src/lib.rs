@@ -1,5 +1,6 @@
 pub mod best_time_to_buy_and_sell_stock;
 pub mod contains_duplicate;
+pub mod group_anagrams;
 pub mod maximum_subarray;
 pub mod merge_intervals;
 pub mod product_of_array_except_self;
